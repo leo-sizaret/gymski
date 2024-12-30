@@ -80,10 +80,6 @@ class WorkoutApp {
         // Get the current workout using the index
         const currentWorkout = current.workouts[current.currentWorkoutIndex];
 
-        // Calculate progress values (fixing the lag)
-        const workoutProgress = (current.currentWorkoutIndex) / (current.workouts.length - 1);
-        const periodProgress = (current.currentPeriod - 1) / current.totalPeriods;
-
         content.innerHTML = `
         <ion-grid class="ion-padding">
             
@@ -95,7 +91,7 @@ class WorkoutApp {
             <!-- Period Progress -->
             <div style="margin-bottom: 20px;">
                 <p>Period ${current.currentPeriod} of ${current.totalPeriods}</p>
-                <ion-progress-bar value="${(current.currentPeriod) / current.totalPeriods}">
+                <ion-progress-bar value="${(current.currentPeriod - 1) / (current.totalPeriods - 1)}">
                 </ion-progress-bar>
             </div>
 
@@ -103,7 +99,7 @@ class WorkoutApp {
             <div style="margin-bottom: 20px;">
                 
                 <p>Workout ${current.currentWorkoutIndex + 1} of ${current.workouts.length}</p>
-                <ion-progress-bar value="${(current.currentWorkoutIndex + 1) / current.workouts.length}">
+                <ion-progress-bar value="${current.currentWorkoutIndex / (current.workouts.length - 1)}">
                 </ion-progress-bar>
             </div>
 
@@ -168,7 +164,7 @@ class WorkoutApp {
                 Complete Workout
             </ion-button>
             <ion-button expand="block" fill="outline" id="back-home">
-                Back to Home
+                Back
             </ion-button>
         </ion-grid>
     `;
@@ -267,13 +263,13 @@ class WorkoutApp {
                                 <h2>${program.name}</h2>
                                 <p>${program.workouts.length} workouts per period</p>
                             </ion-label>
-                            <ion-icon name="chevron-forward" slot="end"></ion-icon>
+                            
                         </ion-item>
                     `).join('')}
                 </ion-list>
 
                 <ion-button expand="block" id="back-home">
-                    Back to Home
+                    Back
                 </ion-button>
             </ion-grid>
         `;
@@ -339,7 +335,7 @@ class WorkoutApp {
                 <h2>Congratulations!</h2>
                 <p>You've completed all ${current.totalPeriods} periods of ${current.name}!</p>
                 <ion-button expand="block" id="back-home">
-                    Back to Home
+                    Back
                 </ion-button>
             </ion-grid>
         `;
